@@ -49,12 +49,4 @@ def deploy():
     archive_path = do_pack()
     if archive_path is None:
         return False
-    if do_deploy(archive_path) is False:
-        return False
-    file_n = archive_path.split("/")[-1]
-    no_ext = file_n.split(".")[0]
-    path = "/data/web_static/releases/"
-    local("echo '<html><head></head><body>Holberton School</body></html>' > /tmp/my_index.html")
-    put('/tmp/my_index.html', '{}{}/web_static/'.format(path, no_ext))
-    return True
-
+    return do_deploy(archive_path)

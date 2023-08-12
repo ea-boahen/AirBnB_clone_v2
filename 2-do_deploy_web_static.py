@@ -21,7 +21,7 @@ def do_deploy(archive_path):
             """ splitting .tgz """
             file_name2 = file_name.split(".")[0]
             """ spliting archivo """
-            final_name = "/data/web_static/releases/" + file_name2 + "/"
+            final_name  = "/data/web_static/releases/" + file_name2 + "/"
             run("mkdir -p " + final_name)
             run("tar -xzf /tmp/" + file_name + " -C " + final_name)
             run("rm /tmp/" + file_name)

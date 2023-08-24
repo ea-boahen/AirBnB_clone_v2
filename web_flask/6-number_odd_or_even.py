@@ -73,9 +73,9 @@ def number_template(n):
 def number_odd_or_even(n):
     """Displays an HTML page only if <n> is an integer."""
     if isinstance(n, int):
-        result = "even" if n % 2 == 0 else "odd"
+        r = "even" if n % 2 == 0 else "odd"
         """States whether <n> is odd or even in the body."""
-        return render_template("6-number_odd_or_even.html", n=n, evenness=result)
+        return render_template("6-number_odd_or_even.html", n=n, evenness=r)
     return "Invalid input: n must be an integer"
 
 

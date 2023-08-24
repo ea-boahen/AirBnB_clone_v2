@@ -29,12 +29,19 @@ def do_deploy(archive_path):
     archive_name = os.path.splitext(archive_filename)[0]
 
     try:
+	# Upload the archive to the server's /tmp/ directory
         put(archive_path, '/tmp/')
-        run(' sudo mkdir -p /data/web_static/releases/{}/'.format(archive_name))
+        # Create the necessary release directory
+        run('sudo mkdir -p /data/web_static/releases/{}/'.format(archive_name))
+        # Extract the archive contents
         run('sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/'.format(archive_filename, archive_name))
+        # Clean up the uploaded archive
         run('sudo rm /tmp/{}'.format(archive_filename))
+        # Move the contents to the appropriate location
         run('sudo mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/'.format(archive_name, archive_name))
+        # Clean up the old web_static directory
         run('sudo rm -rf /data/web_static/releases/{}/web_static'.format(archive_name))
+        # Update the symbolic link to point to the new version
         run('sudo rm -rf /data/web_static/current')
         run('sudo ln -s /data/web_static/releases/{}/ /data/web_static/current'.format(archive_name))
         print("New version deployed!")

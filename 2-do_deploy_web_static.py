@@ -10,26 +10,24 @@ env.user = "ubuntu"
 
 
 def do_deploy(archive_path):
-    """Create a tar gzipped archive of the directory web_static."""
-    if os.path.exists(archive_path) is False:
+    if not os.path.exists(archive_path):
         return False
-    else:
-        try:
-            put(archive_path, "/tmp/")
-            """ putting the file to .tgz """
-            file_name = archive_path.split("/")[1]
-            """ splitting .tgz """
-            file_name2 = file_name.split(".")[0]
-            """ spliting archivo """
-            final_name = "/data/web_static/releases/" + file_name2 + "/"
-            run("mkdir -p " + final_name)
-            run("tar -xzf /tmp/" + file_name + " -C " + final_name)
-            run("rm /tmp/" + file_name)
-            run("mv " + final_name + "web_static/* " + final_name)
-            run("rm -rf " + final_name + "web_static")
-            run("rm -rf /data/web_static/current")
-            run("ln -s " + final_name + " /data/web_static/current")
-            print("New version deployed!")
-            return True
-        except Exception:
-            return False
+
+    archive_filename = os.path.basename(archive_path)
+    archive_name = os.path.splitext(archive_filename)[0]
+
+    try:
+        put(archive_path, '/tmp/')
+        run(' sudo mkdir -p /data/web_static/releases/{}/'.format(archive_name))
+        run('sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/'.format(archive_filename, archive_name))
+        run('sudo rm /tmp/{}'.format(archive_filename))
+        run('sudo mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/'.format(archive_name, archive_name))
+        run('sudo rm -rf /data/web_static/releases/{}/web_static'.format(archive_name))
+        run('sudo rm -rf /data/web_static/current')
+        run('sudo ln -s /data/web_static/releases/{}/ /data/web_static/current'.format(archive_name))
+        print("New version deployed!")
+        return True
+    except Exception as e:
+        print("Deployment failed:", str(e))
+        return False
+

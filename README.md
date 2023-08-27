@@ -205,5 +205,6 @@ $ python3 unittest -m tests/test_console.py
 ```
 
 ## Authors :black_nib:
-* **Adjamkwalim Akum-Yong** <[ Akum-Yong](https://github.com/ Akum-Yong)>
-* **William Dickson** <[williamsHack](https://github.com/williamsHack)>
+* **Enoch Amankwah Boahen* <[ ea_boahen](https://github.com/ea_boahen)>
+* **Mary Aniela Andoh** <[anielaandoh](https://github.com/AnielaAndoh)>
+

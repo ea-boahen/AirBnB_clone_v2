@@ -28,11 +28,11 @@ class FileStorage:
         Otherwise, returns the __objects dictionary.
         """
         if cls is not None:
-            if type(cls) == str:
+            if cls is str:
                 cls = eval(cls)
             cls_dict = {}
             for k, v in self.__objects.items():
-                if type(v) == cls:
+                if v is cls:
                     cls_dict[k] = v
             return cls_dict
         return self.__objects
